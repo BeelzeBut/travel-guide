@@ -1,0 +1,14 @@
+C:\Work\Training\TravelGuide\TravelGuide.Database\bin\Debug\net6.0\TravelGuide.Database.deps.json
+C:\Work\Training\TravelGuide\TravelGuide.Database\bin\Debug\net6.0\TravelGuide.Database.runtimeconfig.json
+C:\Work\Training\TravelGuide\TravelGuide.Database\bin\Debug\net6.0\TravelGuide.Database.dll
+C:\Work\Training\TravelGuide\TravelGuide.Database\bin\Debug\net6.0\TravelGuide.Database.pdb
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\TravelGuide.Database.csproj.AssemblyReference.cache
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\TravelGuide.Database.GeneratedMSBuildEditorConfig.editorconfig
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\TravelGuide.Database.AssemblyInfoInputs.cache
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\TravelGuide.Database.AssemblyInfo.cs
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\TravelGuide.Database.csproj.CoreCompileInputs.cache
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\TravelGuide.Database.dll
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\refint\TravelGuide.Database.dll
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\TravelGuide.Database.pdb
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\TravelGuide.Database.genruntimeconfig.cache
+C:\Work\Training\TravelGuide\TravelGuide.Database\obj\Debug\net6.0\ref\TravelGuide.Database.dll

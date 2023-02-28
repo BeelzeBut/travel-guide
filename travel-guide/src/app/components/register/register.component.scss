@@ -1,0 +1,38 @@
+.center-elements {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 100px 0;
+
+    mat-card {
+        max-width: 500px;
+        width: 100%;
+        background-color: #fafafa;
+        box-shadow: rgb(0 0 0 / 20%) 0px 0px 10px 2.5px;
+
+        mat-card-header {
+            justify-content: center;
+        }
+
+        mat-card-content {
+            display: flex;
+            justify-content: center;
+            overflow: hidden;
+            padding: 15px 30px;
+
+            form {
+                flex: 1;
+            }
+        }
+
+        mat-form-field {
+            width: 100%;
+        }
+    }
+}
+
+.form-group {
+    display: flex;
+    justify-content: center;
+}

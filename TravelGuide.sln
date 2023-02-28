@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelGuide.WebAPI", "TravelGuide.WebAPI\TravelGuide.WebAPI.csproj", "{CFFCC67D-8847-4D78-9871-00B23B9D38CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TravelGuide.Database", "TravelGuide.Database\TravelGuide.Database.csproj", "{9F5568B0-3F6C-469B-BF94-9BE5D5349F4A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CFFCC67D-8847-4D78-9871-00B23B9D38CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CFFCC67D-8847-4D78-9871-00B23B9D38CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CFFCC67D-8847-4D78-9871-00B23B9D38CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CFFCC67D-8847-4D78-9871-00B23B9D38CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F5568B0-3F6C-469B-BF94-9BE5D5349F4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F5568B0-3F6C-469B-BF94-9BE5D5349F4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F5568B0-3F6C-469B-BF94-9BE5D5349F4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F5568B0-3F6C-469B-BF94-9BE5D5349F4A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0C376DB3-965A-4A1C-AF25-74834F5CCD99}
+	EndGlobalSection
+EndGlobal

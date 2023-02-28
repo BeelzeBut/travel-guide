@@ -1,0 +1,10 @@
+<mat-toolbar *ngIf="this.isMenuRequired" color="primary" class="app-header">
+  <a className="logo-img" routerLink="/" style="height: 100%">
+    <img src="../assets/logo.png">
+  </a>
+  <span class="nav-tool-items">
+    <!-- <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
+    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a> -->
+  </span>
+</mat-toolbar>
+<router-outlet></router-outlet>
