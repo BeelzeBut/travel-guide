@@ -16,6 +16,8 @@ namespace TravelGuide.WebAPI.DTOs
         public double Latitude { get; set; }
 
         public double Longitude { get; set; }
+        public Guid UserId { get; set; }
+        public string Username { get; set; }
         public IEnumerable<Guid> Images { get; set; }
     }
 
@@ -32,7 +34,9 @@ namespace TravelGuide.WebAPI.DTOs
                 Description = location.Description,
                 Latitude = location.Latitude,
                 Longitude = location.Longitude,
-                Images = location.Images.Select(location => location.Id)
+                Images = location.Images?.Select(location => location.Id),
+                Username = location.User?.Username ?? "Deleted user",
+                UserId = location.UserId
             };
         }
 
@@ -40,6 +44,7 @@ namespace TravelGuide.WebAPI.DTOs
         {
             return new Location
             {
+                Id = Guid.NewGuid(),
                 Name = locationDto.Name,
                 Tags = locationDto.Tags,
                 Description = locationDto.Description,

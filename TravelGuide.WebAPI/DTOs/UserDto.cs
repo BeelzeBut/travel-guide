@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,6 +25,16 @@ namespace TravelGuide.WebAPI.DTOs
 
         public UserType UserType { get; set; }
 
+    }
+
+    public class UserUpdateDto
+    {
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public string Password { get; set; }
+        public UserType UserType { get; set; }
     }
 
     public static class UserDtoExtension
@@ -70,6 +81,17 @@ namespace TravelGuide.WebAPI.DTOs
             user.FirstName = userDto.FirstName;
             user.LastName = userDto.LastName;
             user.Username = userDto.Username;
+            user.UserType = userDto.UserType;
+            if (!string.IsNullOrWhiteSpace(userDto.Password))
+            {
+                user.PasswordHash = hashService.Hash(userDto.Password);
+            }
+        }
+
+        public static void CopyToModel(this UserUpdateDto userDto, User user, IHashService hashService)
+        {
+            user.FirstName = userDto.FirstName;
+            user.LastName = userDto.LastName;
             user.UserType = userDto.UserType;
             if (!string.IsNullOrWhiteSpace(userDto.Password))
             {

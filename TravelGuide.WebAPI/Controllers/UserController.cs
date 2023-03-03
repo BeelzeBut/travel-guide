@@ -42,7 +42,7 @@ namespace TravelGuide.WebAPI.Controllers
         }
 
         [HttpPut("update/{id}")]
-        public async Task<UserDto?> UpdateUser(Guid id, [FromBody] UserDto user)
+        public async Task<UserDto?> UpdateUser(Guid id, [FromBody] UserUpdateDto user)
         {
             return await _userService.UpdateUserAsync(id, user);
         }

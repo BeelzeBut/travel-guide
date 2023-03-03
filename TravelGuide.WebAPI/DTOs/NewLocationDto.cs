@@ -5,7 +5,6 @@ namespace TravelGuide.WebAPI.DTOs
 {
     public class NewLocationDto
     {
-        public Guid Id { get; set; }
         public string Name { get; set; }
 
         public Tag Tags { get; set; }
@@ -16,6 +15,6 @@ namespace TravelGuide.WebAPI.DTOs
 
         public double Longitude { get; set; }
         public Guid UserId { get; set; }
-        public IEnumerable<IFormFile> Images {  get; set; } 
+        public IEnumerable<IFormFile>? Images {  get; set; } 
     }
 }

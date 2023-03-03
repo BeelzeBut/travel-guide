@@ -42,7 +42,7 @@ namespace TravelGuide.Services
             return user.ToDto();
 
         }
-        public async Task<UserDto?> UpdateUserAsync(Guid userId, UserDto updatedUserDto)
+        public async Task<UserDto?> UpdateUserAsync(Guid userId, UserUpdateDto updatedUserDto)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(user => user.Id == userId);
             if (user is null)
