@@ -1,10 +1,14 @@
 <mat-toolbar *ngIf="this.isMenuRequired" color="primary" class="app-header">
-  <a className="logo-img" routerLink="/" style="height: 100%">
+  <a class="logo-img" routerLink="/" style="height: 100%">
     <img src="../assets/logo.png">
   </a>
-  <span class="nav-tool-items">
-    <!-- <a mat-button routerLink="login" routerLinkActive="active">Log in</a>
-    <a mat-button mat-raised-button routerLink="register" routerLinkActive="active">Register</a> -->
-  </span>
+  <div class="nav-tool-items">
+    <div>
+      <a *ngIf="isAdmin" mat-button routerLink="/users" routerLinkActive="active">Users</a>
+    </div>
+    <div>
+      <a mat-button mat-raised-button (click)="logout()">Logout</a>
+    </div>
+  </div>
 </mat-toolbar>
 <router-outlet></router-outlet>

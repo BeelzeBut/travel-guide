@@ -21,7 +21,7 @@ export interface LoginResponseDto {
 export class AuthService {
 
   constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) { }
-  private apiUrl = 'https://localhost:7244/api/authentication/';
+  private apiUrl = 'https://travel-guide.azurewebsites.net/api/authentication/';
 
   login(username: string, password: string) {
     return this.http.post<LoginResponseDto>(this.apiUrl + 'login', {
@@ -69,13 +69,17 @@ export class AuthService {
   private setSession(authResult: LoginResponseDto) {
     const expiresAt = new Date(authResult.expiration);
 
-    localStorage.setItem('token', authResult.token);
-    localStorage.setItem("expiration", JSON.stringify(expiresAt.valueOf()));
+    localStorage.setItem('auth', JSON.stringify({
+      ...authResult,
+      expiration: expiresAt.valueOf()
+    }))
   }
 
   logout() {
-    localStorage.removeItem("token");
-    localStorage.removeItem("expiration");
+    localStorage.removeItem("auth");
+
+    this.toastr.success('Logged out successfully!');
+    this.router.navigate(['login']);
   }
 
   public isLoggedIn() {
@@ -87,12 +91,40 @@ export class AuthService {
   }
 
   getExpiration() {
-    const expiration = localStorage.getItem("expiration");
-    if (expiration === null) {
+    const auth = localStorage.getItem("auth");
+    if (auth === null) {
       return null;
     }
 
-    const expiresAt = JSON.parse(expiration);
+    const expiresAt = JSON.parse(auth).expiration;
     return moment(expiresAt);
+  }
+
+  getIsAdmin(): boolean {
+    const auth = localStorage.getItem("auth");
+    if (auth === null) {
+      return false;
+    }
+
+    return JSON.parse(auth).userType === UserType.Admin;
+  }
+
+  getUserId(): string {
+    const auth = localStorage.getItem("auth");
+    if (auth === null) {
+      return '';
+    }
+
+    return JSON.parse(auth).userId;
+  }
+
+  getUserFullName(): string {
+    const auth = localStorage.getItem("auth");
+    if (auth === null) {
+      return '';
+    }
+
+    const authObj = JSON.parse(auth);
+    return authObj.firstName + ' ' + authObj.lastName;
   }
 }

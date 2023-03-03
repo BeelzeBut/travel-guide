@@ -1,0 +1,48 @@
+<div class="center-elements">
+    <div>
+        <h1>{{isEdit ? 'Edit' :
+            'Add'}} location</h1>
+    </div>
+    <div>
+        <form class="registration-form" [formGroup]="locationForm" (ngSubmit)="saveLocation()">
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Latitude</mat-label>
+                    <input readonly matInput formControlName="latitude">
+                </mat-form-field>
+                <mat-form-field>
+                    <mat-label>Longitude</mat-label>
+                    <input readonly matInput formControlName="longitude">
+                </mat-form-field>
+            </div>
+
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Name</mat-label>
+                    <input matInput formControlName="name">
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="description"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field>
+                    <mat-label>Tags</mat-label>
+                    <mat-select matInput formControlName="tags" multiple>
+                        <mat-option *ngFor="let tag of tags" [value]="tag">
+                            {{getOptionLabel(tag)}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div>
+                <button mat-raised-button color="primary" style='margin-right: 10px'>{{isEdit ? 'Edit' :
+                    'Add'}}</button>
+                <button mat-raised-button mat-dialog-close color="accent">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

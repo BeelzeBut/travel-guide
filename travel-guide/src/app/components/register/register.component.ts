@@ -19,10 +19,6 @@ export class RegisterComponent {
   registerForm = this.builder.group({
     firstName: this.builder.control('', Validators.required),
     lastName: this.builder.control('', Validators.required),
-    email: this.builder.control('', Validators.compose([
-      Validators.required,
-      Validators.email
-    ])),
     username: this.builder.control('', Validators.required),
     password: this.builder.control('', Validators.compose([
       Validators.required,

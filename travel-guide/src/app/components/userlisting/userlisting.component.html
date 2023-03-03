@@ -22,13 +22,24 @@
 
         <ng-container matColumnDef="userType">
             <th mat-header-cell *matHeaderCellDef> Role </th>
-            <td mat-cell *matCellDef="let element"> {{element.userType|stringPipe}} </td>
+            <td mat-cell *matCellDef="let element">
+                {{element.userType === 1 ? 'Regular' : 'Admin'}}
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+            <th mat-header-cell *matHeaderCellDef></th>
+            <td mat-cell *matCellDef="let element">
+                <a (click)="updateUser(element.id)" mat-raised-button color="primary">Update</a>
+                <a *ngIf="isNotLoggedInUser(element.id)" (click)="deleteUser(element.id)" mat-raised-button
+                    style="background-color: red; margin-left: 4px">Delete</a>
+            </td>
         </ng-container>
 
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
 
-    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select page of periodic elements">
+    <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons aria-label="Select users page">
     </mat-paginator>
 </div>

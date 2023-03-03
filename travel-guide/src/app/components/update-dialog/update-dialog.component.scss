@@ -1,0 +1,30 @@
+.center-elements {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+
+    .header {
+        justify-content: center;
+    }
+
+    .content {
+        display: flex;
+        justify-content: center;
+        overflow: hidden;
+
+        form {
+            flex: 1;
+        }
+    }
+
+    mat-form-field {
+        width: 100%;
+    }
+}
+
+.form-group {
+    display: flex;
+    justify-content: center;
+}

@@ -1,3 +1,24 @@
-<div style="text-align: center;">
-    <h1>Welcome To Travel Guide!</h1>
+<div style="height: calc(100vh - 64px)">
+    <google-map height="100%" width="100%" [zoom]="zoom" [center]="center" [options]="options"
+        (mapDblclick)="mapDoubleClick($event)">
+        <map-marker *ngIf="!!currentPosition" [position]="currentPosition" label="Current position"
+            title="Current position"
+            [options]="{icon: { url:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' }, zIndex: 100}">
+        </map-marker>
+        <map-marker #marker="mapMarker" *ngFor="let location of locations"
+            [position]="{lat: location.latitude, lng: location.longitude}" [label]="location.name"
+            [title]="location.name" (mapClick)="openInfo(marker, infoWindow)">
+            <map-info-window #infoWindow="mapInfoWindow">
+                <h4>{{location.name}}</h4>
+                <p>{{location.description}}</p>
+                <p>{{getTags(location.tags)}}</p>
+                <p>Added by <i>{{location.username}}</i></p>
+                <div *ngIf="canEditLocation(location.userId)" class="edit-location">
+                    <button mat-button mat-raised-button color="primary" (click)="editLocation(location)">Edit</button>
+                    <button mat-button mat-raised-button style="background-color: red"
+                        (click)="deleteLocation(location.id)">Delete</button>
+                </div>
+            </map-info-window>
+        </map-marker>
+    </google-map>
 </div>

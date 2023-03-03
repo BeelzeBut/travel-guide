@@ -11,17 +11,22 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { RegisterComponent } from './components/register/register.component';
 import { LoginComponent } from './components/login/login.component';
-import { HomeComponent } from './components/home/home.component';
 import { UserlistingComponent } from './components/userlisting/userlisting.component';
 import { AuthInterceptor } from './service/auth.interceptor';
+import { UpdateDialogComponent } from './components/update-dialog/update-dialog.component';
+import { GoogleMapsModule } from '@angular/google-maps';
+import { HomeComponent } from './components/home/home.component';
+import { LocationDialogComponent } from './components/location-dialog/location-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    HomeComponent,
     UserlistingComponent,
+    UpdateDialogComponent,
+    HomeComponent,
+    LocationDialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,6 +37,7 @@ import { AuthInterceptor } from './service/auth.interceptor';
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
+    GoogleMapsModule
   ],
   providers: [
     {

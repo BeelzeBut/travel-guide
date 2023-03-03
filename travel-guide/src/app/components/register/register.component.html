@@ -5,7 +5,7 @@
         </mat-card-header>
         <mat-card-content>
             <form class="registration-form" [formGroup]="registerForm" (ngSubmit)="proceedRegistration()">
-                <div className="form-group">
+                <div class="form-group">
                     <mat-form-field>
                         <mat-label>First name</mat-label>
                         <input matInput formControlName="firstName">
@@ -13,12 +13,6 @@
                     <mat-form-field>
                         <mat-label>Last name</mat-label>
                         <input matInput formControlName="lastName">
-                    </mat-form-field>
-                </div>
-                <div class="form-group">
-                    <mat-form-field>
-                        <mat-label>Email</mat-label>
-                        <input matInput formControlName="email">
                     </mat-form-field>
                 </div>
                 <div class="form-group">

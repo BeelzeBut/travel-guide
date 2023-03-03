@@ -1,5 +1,6 @@
 import { Component, DoCheck } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from './service/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,8 @@ import { Router } from '@angular/router';
 export class AppComponent implements DoCheck {
   title: string = 'travel-guide';
   isMenuRequired: boolean = false;
-  constructor(private router: Router) { }
+  isAdmin: boolean = false;
+  constructor(private router: Router, private authService: AuthService) { }
 
   ngDoCheck() {
     const currentUrl = this.router.url;
@@ -18,5 +20,11 @@ export class AppComponent implements DoCheck {
     } else {
       this.isMenuRequired = true;
     }
+
+    this.isAdmin = this.authService.getIsAdmin();
+  }
+
+  logout() {
+    this.authService.logout();
   }
 }
