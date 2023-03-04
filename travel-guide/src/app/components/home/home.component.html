@@ -8,10 +8,22 @@
         <map-marker #marker="mapMarker" *ngFor="let location of locations"
             [position]="{lat: location.latitude, lng: location.longitude}" [label]="location.name"
             [title]="location.name" (mapClick)="openInfo(marker, infoWindow)">
-            <map-info-window #infoWindow="mapInfoWindow">
+            <map-info-window #infoWindow="mapInfoWindow" class="center-elements">
+                <c-carousel *ngIf="location.images.length" [interval]="0">
+                    <c-carousel-inner>
+                        <c-carousel-item *ngFor="let image of location.images">
+                            <img [src]="getImageBase64String(image)" class="d-block w-100" loading="lazy" />
+                        </c-carousel-item>
+                    </c-carousel-inner>
+                    <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+                    <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+                </c-carousel>
                 <h4>{{location.name}}</h4>
+                <div style="display: flex; justify-content: center; flex-wrap: wrap">
+                    <mat-chip disabled *ngFor="let tag of getTagsAsStringArray(location.tags)"
+                        style="margin: 2px">{{tag}}</mat-chip>
+                </div>
                 <p>{{location.description}}</p>
-                <p>{{getTags(location.tags)}}</p>
                 <p>Added by <i>{{location.username}}</i></p>
                 <div *ngIf="canEditLocation(location.userId)" class="edit-location">
                     <button mat-button mat-raised-button color="primary" (click)="editLocation(location)">Edit</button>

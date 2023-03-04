@@ -17,6 +17,7 @@ import { UpdateDialogComponent } from './components/update-dialog/update-dialog.
 import { GoogleMapsModule } from '@angular/google-maps';
 import { HomeComponent } from './components/home/home.component';
 import { LocationDialogComponent } from './components/location-dialog/location-dialog.component';
+import { CarouselModule } from '@coreui/angular';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { LocationDialogComponent } from './components/location-dialog/location-d
     ReactiveFormsModule,
     HttpClientModule,
     ToastrModule.forRoot(),
-    GoogleMapsModule
+    GoogleMapsModule,
+    CarouselModule
   ],
   providers: [
     {

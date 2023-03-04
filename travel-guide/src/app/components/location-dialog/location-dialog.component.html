@@ -38,6 +38,15 @@
                     </mat-select>
                 </mat-form-field>
             </div>
+            <div *ngIf="!isEdit" class="form-group" style="margin-bottom: 20px">
+                <div style="width: 100%">
+                    <button type="button" mat-raised-button (click)="fileInput.click()">Choose images *</button>
+                    <input hidden (change)="onFileChange($event)" multiple #fileInput type="file" accept=".jpeg,.png">
+                    <div style="margin-top: 10px;">
+                        {{ getImageNames() }}
+                    </div>
+                </div>
+            </div>
             <div>
                 <button mat-raised-button color="primary" style='margin-right: 10px'>{{isEdit ? 'Edit' :
                     'Add'}}</button>

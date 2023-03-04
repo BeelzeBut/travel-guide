@@ -43,7 +43,7 @@ export interface NewLocationDto {
   latitude: number,
   longitude: number,
   userId: string,
-  images?: File[]
+  images?: string[]
 }
 
 export interface LocationDto {
@@ -164,13 +164,18 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  getTags(tags: number) {
-    return stringTags.map((tag, index) => {
+  getTagsAsStringArray(tags: number) {
+    let result: string[] = [];
+    stringTags.forEach((tag, index) => {
       if ((tags >> index) & 1) {
-        return tag + " · ";
+        result.push(tag);
       }
+    })
 
-      return "";
-    }).join('').slice(0, -3)
+    return result;
+  }
+
+  getImageBase64String(image: string) {
+    return "data:image/jpeg;base64, " + image;
   }
 }

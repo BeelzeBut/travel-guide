@@ -11,6 +11,7 @@ export class LocationService {
 
   constructor(private http: HttpClient, private toastr: ToastrService) { }
   private apiUrl = 'https://travel-guide.azurewebsites.net/api/location/';
+  // private apiUrl = 'https://localhost:7244/api/location/';
 
   getAllLocations() {
     return this.http.get<LocationDto[]>(this.apiUrl + 'getAllLocations');
@@ -20,8 +21,8 @@ export class LocationService {
     return this.http.get<LocationDto>(this.apiUrl + locationId);
   }
 
-  createLocation(location: NewLocationDto) {
-    return this.http.post(this.apiUrl + 'create', location, { observe: 'response' });
+  createLocation(locationFormData: FormData) {
+    return this.http.post(this.apiUrl + 'create', locationFormData, { observe: 'response' });
   }
 
   updateLocation(location: NewLocationDto, locationId: string) {

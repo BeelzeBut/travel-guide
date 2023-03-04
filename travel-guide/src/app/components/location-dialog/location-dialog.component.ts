@@ -8,6 +8,13 @@ import { LocationService } from 'src/app/service/location.service';
 import { convertToTags, LocationDto, NewLocationDto, TagEnum } from '../home/home.component';
 import { UpdateDialogComponent } from '../update-dialog/update-dialog.component';
 
+export const toBase64 = (file: File) => new Promise((resolve, reject) => {
+  const reader = new FileReader();
+  reader.readAsDataURL(file);
+  reader.onload = () => resolve(reader.result);
+  reader.onerror = error => reject(error);
+});
+
 @Component({
   selector: 'app-location-dialog',
   templateUrl: './location-dialog.component.html',
@@ -23,6 +30,7 @@ export class LocationDialogComponent {
 
   tags = [TagEnum.experience, TagEnum.food, TagEnum.hike, TagEnum.historical, TagEnum.view];
   isEdit: boolean = false;
+  imageFiles: File[] = [];
 
   ngOnInit(): void {
     if (this.data.location) {
@@ -58,20 +66,33 @@ export class LocationDialogComponent {
   saveLocation() {
     this.locationForm.controls['latitude'].enable();
     this.locationForm.controls['longitude'].enable();
-    if (this.locationForm.valid) {
-      const newLocation: NewLocationDto = {
-        name: this.locationForm.value.name!,
-        description: this.locationForm.value.description!,
-        latitude: typeof this.locationForm.value.latitude! === 'string' ? +this.locationForm.value.latitude! : this.locationForm.value.latitude!,
-        longitude: typeof this.locationForm.value.longitude! === 'string' ? +this.locationForm.value.longitude! : this.locationForm.value.longitude!,
-        tags: ((this.locationForm.value.tags! as unknown) as number[]).reduce((prev, current) => prev | current) as TagEnum,
-        userId: this.authService.getUserId(),
-      }
+    if (this.locationForm.valid && (this.isEdit || this.imageFiles.length > 0)) {
+      const bodyFormData = new FormData();
+
+      bodyFormData.append('name', this.locationForm.value.name!);
+      bodyFormData.append('description', this.locationForm.value.description!);
+      bodyFormData.append('tags', (((this.locationForm.value.tags! as unknown) as number[]).reduce((prev, current) => prev | current) as TagEnum).toString());
+      bodyFormData.append('latitude', this.locationForm.value.latitude!.toString());
+      bodyFormData.append('longitude', this.locationForm.value.longitude!.toString());
+      bodyFormData.append('userId', this.authService.getUserId());
+
+      this.imageFiles.forEach((image: File, index: number) => {
+        bodyFormData.append(`images`, image, image.name);
+      });
+
       if (!this.isEdit) {
-        this.locationService.createLocation(newLocation).subscribe(res => {
+        this.locationService.createLocation(bodyFormData).subscribe(res => {
           this.dialog.close();
         });
       } else {
+        const newLocation: NewLocationDto = {
+          name: this.locationForm.value.name!,
+          description: this.locationForm.value.description!,
+          latitude: typeof this.locationForm.value.latitude! === 'string' ? +this.locationForm.value.latitude! : this.locationForm.value.latitude!,
+          longitude: typeof this.locationForm.value.longitude! === 'string' ? +this.locationForm.value.longitude! : this.locationForm.value.longitude!,
+          tags: ((this.locationForm.value.tags! as unknown) as number[]).reduce((prev, current) => prev | current) as TagEnum,
+          userId: this.authService.getUserId(),
+        }
         this.locationService.updateLocation(newLocation, this.data.location.id).subscribe(res => {
           this.dialog.close();
         });
@@ -96,5 +117,21 @@ export class LocationDialogComponent {
       default:
         throw new Error("Unsupported option");
     }
+  }
+
+  async onFileChange(event: any) {
+    this.imageFiles = [];
+    for (var i = 0; i < event.target.files.length; i++) {
+      this.imageFiles.push(event.target.files[i]);
+    }
+  }
+
+  getImageNames() {
+    let fileNames: string = '';
+    this.imageFiles.forEach(file => {
+      fileNames += (file.name + ', ')
+    });
+
+    return fileNames.substring(0, fileNames.length - 2);
   }
 }
