@@ -19,6 +19,18 @@
                 [position]="{lat: location.latitude, lng: location.longitude}" [label]="location.name"
                 [title]="location.name" (mapClick)="openInfo(marker, infoWindow)">
                 <map-info-window #infoWindow="mapInfoWindow" class="center-elements">
+                    <div style="display: flex; margin-bottom: 10px">
+                        <button mat-raised-button color="primary" class="nav-button" (click)="openWaze(location)"
+                            style="margin-right: 4px;">
+                            <img src="assets/waze-logo.png" alt="Waze logo" style="width: 20px; height: 20px">
+                            Waze
+                        </button>
+                        <button mat-raised-button class="nav-button" color=accent (click)="openGoogleMaps(location)"
+                            style="margin-left: 4px;">
+                            Google Maps
+                            <mat-icon>navigation</mat-icon>
+                        </button>
+                    </div>
                     <c-carousel *ngIf="location.images.length" [interval]="0">
                         <c-carousel-inner>
                             <c-carousel-item *ngFor="let image of location.images">

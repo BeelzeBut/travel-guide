@@ -255,4 +255,14 @@ export class HomeComponent implements OnInit {
 
     this.listLocations = newListLocations;
   }
+
+  openWaze(location: LocationDto) {
+    const navUrl = `https://www.waze.com/en-GB/live-map/directions?navigate=yes&to=ll.${this.currentPosition === null ? '' : this.currentPosition.lat + ',' + this.currentPosition.lng}&from=ll.${location.latitude + '%2C' + location.longitude}`;
+    window.open(navUrl, '_blank');
+  }
+
+  openGoogleMaps(location: LocationDto) {
+    const navUrl = `https://www.google.com/maps?saddr=${this.currentPosition === null ? '' : this.currentPosition.lat + ',' + this.currentPosition.lng}&daddr=${location.latitude + ',' + location.longitude}`
+    window.open(navUrl, '_blank');
+  }
 }
