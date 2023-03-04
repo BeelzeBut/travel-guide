@@ -22,8 +22,8 @@ export enum UserType {
 export class UserService {
 
   constructor(private http: HttpClient, private toastr: ToastrService) { }
-  // private apiUrl = 'https://travel-guide.azurewebsites.net/api/user/';
-  private apiUrl = 'https://localhost:7244/api/user/';
+  private apiUrl = 'https://travel-guide.azurewebsites.net/api/user/';
+  // private apiUrl = 'https://localhost:7244/api/user/';
 
   getAllUsers() {
     return this.http.get<UserDto[]>(this.apiUrl + 'getAllUsers');

@@ -21,8 +21,8 @@ export interface LoginResponseDto {
 export class AuthService {
 
   constructor(private http: HttpClient, private toastr: ToastrService, private router: Router) { }
-  // private apiUrl = 'https://travel-guide.azurewebsites.net/api/authentication/';
-  private apiUrl = 'https://localhost:7244/api/authentication/';
+  private apiUrl = 'https://travel-guide.azurewebsites.net/api/authentication/';
+  // private apiUrl = 'https://localhost:7244/api/authentication/';
 
   login(username: string, password: string) {
     return this.http.post<LoginResponseDto>(this.apiUrl + 'login', {
