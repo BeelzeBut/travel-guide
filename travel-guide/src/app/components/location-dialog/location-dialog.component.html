@@ -41,7 +41,8 @@
             <div *ngIf="!isEdit" class="form-group" style="margin-bottom: 20px">
                 <div style="width: 100%">
                     <button type="button" mat-raised-button (click)="fileInput.click()">Choose images *</button>
-                    <input hidden (change)="onFileChange($event)" multiple #fileInput type="file" accept=".jpeg,.png">
+                    <input hidden (change)="onFileChange($event)" multiple #fileInput type="file"
+                        accept=".jpg,.jpeg,.png">
                     <div style="margin-top: 10px;">
                         {{ getImageNames() }}
                     </div>

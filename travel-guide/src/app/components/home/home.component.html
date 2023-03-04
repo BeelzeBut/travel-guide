@@ -1,36 +1,85 @@
-<div style="height: calc(100vh - 64px)">
-    <google-map height="100%" width="100%" [zoom]="zoom" [center]="center" [options]="options"
-        (mapDblclick)="mapDoubleClick($event)">
-        <map-marker *ngIf="!!currentPosition" [position]="currentPosition" label="Current position"
-            title="Current position"
-            [options]="{icon: { url:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' }, zIndex: 100}">
-        </map-marker>
-        <map-marker #marker="mapMarker" *ngFor="let location of locations"
-            [position]="{lat: location.latitude, lng: location.longitude}" [label]="location.name"
-            [title]="location.name" (mapClick)="openInfo(marker, infoWindow)">
-            <map-info-window #infoWindow="mapInfoWindow" class="center-elements">
-                <c-carousel *ngIf="location.images.length" [interval]="0">
-                    <c-carousel-inner>
-                        <c-carousel-item *ngFor="let image of location.images">
-                            <img [src]="getImageBase64String(image)" class="d-block w-100" loading="lazy" />
-                        </c-carousel-item>
-                    </c-carousel-inner>
-                    <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
-                    <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
-                </c-carousel>
-                <h4>{{location.name}}</h4>
-                <div style="display: flex; justify-content: center; flex-wrap: wrap">
-                    <mat-chip disabled *ngFor="let tag of getTagsAsStringArray(location.tags)"
-                        style="margin: 2px">{{tag}}</mat-chip>
+<div class="map-container">
+    <div class="google-map-container" [ngClass]="{'small': isDrawerOpen}">
+        <div class="buttons-container">
+            <button mat-icon-button class="button" (click)="onDrawerButtonClick()">
+                <mat-icon>list_alt</mat-icon>
+            </button>
+            <button mat-icon-button class="button" (click)="centerSelf()">
+                <mat-icon>my_location</mat-icon>
+            </button>
+        </div>
+        <google-map height="100%" width="100%" [zoom]="zoom" [center]="center" [options]="options"
+            (mapDblclick)="mapDoubleClick($event)" (boundsChanged)="onMapBoundsChangedDebounced()">
+
+            <map-marker *ngIf=" !!currentPosition" [position]="currentPosition" label="Current position"
+                title="Current position"
+                [options]="{icon: { url:'http://maps.google.com/mapfiles/ms/icons/blue-dot.png' }, zIndex: 100}">
+            </map-marker>
+            <map-marker #marker="mapMarker" *ngFor="let location of listLocations"
+                [position]="{lat: location.latitude, lng: location.longitude}" [label]="location.name"
+                [title]="location.name" (mapClick)="openInfo(marker, infoWindow)">
+                <map-info-window #infoWindow="mapInfoWindow" class="center-elements">
+                    <c-carousel *ngIf="location.images.length" [interval]="0">
+                        <c-carousel-inner>
+                            <c-carousel-item *ngFor="let image of location.images">
+                                <img [src]="getImageBase64String(image)" class="d-block w-100" loading="lazy" />
+                            </c-carousel-item>
+                        </c-carousel-inner>
+                        <c-carousel-control [routerLink] caption="Previous" direction="prev"></c-carousel-control>
+                        <c-carousel-control [routerLink] caption="Next" direction="next"></c-carousel-control>
+                    </c-carousel>
+                    <h4>{{location.name}}</h4>
+                    <div style="display: flex; justify-content: center; flex-wrap: wrap">
+                        <mat-chip disabled *ngFor="let tag of getTagsAsStringArray(location.tags)"
+                            style="margin: 2px">{{tag}}</mat-chip>
+                    </div>
+                    <p>{{location.description}}</p>
+                    <p>Added by <i>{{location.username}}</i></p>
+                    <div *ngIf="canEditLocation(location.userId)" class="edit-location">
+                        <button mat-button mat-raised-button color="primary"
+                            (click)="editLocation(location)">Edit</button>
+                        <button mat-button mat-raised-button style="background-color: red"
+                            (click)="deleteLocation(location.id)">Delete</button>
+                    </div>
+                </map-info-window>
+            </map-marker>
+        </google-map>
+    </div>
+    <div class="side-drawer" [ngClass]="{'closed': !isDrawerOpen}">
+        <div class="list-container">
+            <h3 style="color: white">Points of interest in the current area</h3>
+            <div class="search-box-container">
+                <mat-form-field>
+                    <mat-label>Search</mat-label>
+                    <input matInput [value]="textFilter" (change)="handleSearchBoxChange($event)">
+                </mat-form-field>
+            </div>
+            <div class="tags-filter-container">
+                <mat-chip-option [selected]="tagFilter[index]" color="accent"
+                    *ngFor="let tag of stringTags; let index = index" (click)="
+                    onClickTagButton(index)">
+                    {{tag}}
+                </mat-chip-option>
+            </div>
+            <mat-divider></mat-divider>
+            <div class="locations-list-container">
+                <div class="solo-location-container" *ngFor="let location of listLocations; let i=index"
+                    (click)="onLocationSelect(location); map?.panTo({lat: location.latitude, lng: location.longitude});"
+                    [ngClass]="{'pointer': true}">
+                    <div class="solo-location-image-container">
+                        <img [src]="getImageBase64String(location.images[0])" alt="{{ location.name }}"
+                            class="solo-location-image">
+                    </div>
+                    <div class="solo-location-details">
+                        <h3 style="margin: 0">{{ location.name }}</h3>
+                        <mat-divider style="margin-bottom: 6px"></mat-divider>
+                        <mat-chip style="margin: 2px" disabled
+                            *ngFor="let tag of getTagsAsStringArray(location.tags)">{{ tag }}</mat-chip>
+                        <p style="margin-top: 10px">{{ location.description }}</p>
+                    </div>
                 </div>
-                <p>{{location.description}}</p>
-                <p>Added by <i>{{location.username}}</i></p>
-                <div *ngIf="canEditLocation(location.userId)" class="edit-location">
-                    <button mat-button mat-raised-button color="primary" (click)="editLocation(location)">Edit</button>
-                    <button mat-button mat-raised-button style="background-color: red"
-                        (click)="deleteLocation(location.id)">Delete</button>
-                </div>
-            </map-info-window>
-        </map-marker>
-    </google-map>
+            </div>
+
+        </div>
+    </div>
 </div>

@@ -2,10 +2,193 @@
     width: 300px !important;
 }
 
+mat-form-field {
+    width: 100%;
+}
+
+::-webkit-scrollbar {
+    display: none;
+}
+
 .center-elements {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     padding: 10px 0;
+}
+
+.map-container {
+    height: calc(100vh - 88px);
+    margin: 12px;
+    box-shadow: rgba(0, 0, 0, 0.3) 0px 4px 8px 0px, rgba(0, 0, 0, 0.3) 0px 6px 20px 0px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
+
+    .center-self-button {
+        margin-right: 8px;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        min-width: 0;
+        float: right;
+    }
+
+    .buttons-container {
+        position: absolute;
+        margin-top: 10px;
+        z-index: 10;
+
+        .button {
+            margin-left: 10px;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            min-width: 0;
+            background-color: #3f51b5;
+            color: white;
+        }
+
+        .pulse {
+            -webkit-animation: pulsing 1s infinite cubic-bezier(0.4, 0, 0, 1);
+        }
+
+        .no-pulse {
+            -webkit-animation: none;
+        }
+    }
+
+    .google-map-container {
+        width: 100%;
+        height: 100%;
+        float: right;
+        transition: width 0.5s ease-in-out;
+
+        &.small {
+            width: 70%;
+        }
+    }
+
+    .side-drawer {
+        height: 100%;
+        background: #3f51b5;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 30%;
+        z-index: 200;
+        box-shadow: 1px 0px 7px rgba(0, 0, 0, 0.5);
+        transform: translateX(0);
+        transition: transform 0.5s ease-in-out;
+        overflow-y: auto;
+        border-radius: 20px;
+
+        &::-webkit-scrollbar {
+            height: 0;
+        }
+
+        @media (max-width: 768px) {
+            //width: 100%;
+        }
+
+        &.closed {
+            transform: translateX(-105%);
+        }
+
+        .list-container {
+            margin: 1em;
+
+            .tags-filter-container {
+                justify-content: space-around;
+                display: flex;
+                margin: 12px 0;
+
+                .tag-button {
+                    flex: 1;
+                    margin: 0 5px;
+                    background-color: #3f51b5;
+                    font-size: 16px;
+
+                    &.selected {
+                        background-color: rgba(217, 222, 217, 0.8);
+                    }
+                }
+            }
+
+            .search-box-container {
+                margin-top: 8px;
+                margin-bottom: 8px;
+            }
+
+            .locations-list-container {
+                margin-top: 1em;
+                margin-bottom: 1em;
+                position: relative;
+                overflow-y: auto;
+                display: block;
+                color: white;
+
+                .solo-location-container {
+                    display: flex;
+                    border-radius: 20px;
+                    margin: 10px 0;
+
+                    &:hover {
+                        background-color: rgba(217, 222, 217, 0.7);
+                    }
+
+                    .solo-location-image-container {
+                        height: 10vw;
+                        width: 14vw;
+                        flex: 2;
+
+                        .solo-location-image {
+                            height: 100%;
+                            width: 100%;
+                            object-fit: cover;
+                            border-radius: 20px;
+                        }
+                    }
+
+                    .solo-location-details {
+                        flex: 3;
+                        margin-left: 1em;
+                    }
+                }
+
+                .divider {
+                    margin-top: 12px;
+                    margin-bottom: 12px;
+                }
+            }
+        }
+    }
+
+}
+
+
+@-webkit-keyframes pulsing {
+    to {
+        box-shadow: 0 0 0 30px rgba(255, 179, 61, 0);
+    }
+}
+
+@-moz-keyframes pulsing {
+    to {
+        box-shadow: 0 0 0 30px rgba(255, 179, 61, 0);
+    }
+}
+
+@-ms-keyframes pulsing {
+    to {
+        box-shadow: 0 0 0 30px rgba(255, 179, 61, 0);
+    }
+}
+
+@keyframes pulsing {
+    to {
+        box-shadow: 0 0 0 30px rgba(255, 179, 61, 0);
+    }
 }
